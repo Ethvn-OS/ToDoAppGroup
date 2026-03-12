@@ -1,23 +1,41 @@
-﻿namespace ToDoApplicationGroup;
+﻿using Microsoft.Maui.Storage;
+
+namespace ToDoApplicationGroup;
 
 public partial class MainPage : ContentPage
 {
-    int count = 0;
-
     public MainPage()
     {
         InitializeComponent();
     }
 
-    private void OnCounterClicked(object? sender, EventArgs e)
+    private void SignUpBtn_OnClicked(object? sender, EventArgs e)
     {
-        count++;
+        Navigation.PushModalAsync(new SignUpPage(), false);
+    }
 
-        if (count == 1)
-            CounterBtn.Text = $"Clicked {count} time";
+    private async void SignInBtn_OnClicked(object? sender, EventArgs e)
+    {
+        if (!Preferences.Default.ContainsKey("auth_email") || !Preferences.Default.ContainsKey("auth_password"))
+        {
+            await DisplayAlertAsync("No Account", "Please sign up first.", "OK");
+            return;
+        }
+        
+        var savedEmail = Preferences.Default.Get("auth_email", "");
+        var savedPassword = Preferences.Default.Get("auth_password", "");
+
+        var inputEmail = InputEmail.Text?.Trim().ToLowerInvariant() ?? "";
+        var inputPassword = InputPassword.Text ?? "";
+
+        if (inputEmail == savedEmail && inputPassword == savedPassword)
+        {
+            await DisplayAlertAsync("Welcome!", "You have successfully signed in.", "OK");
+            await Navigation.PushAsync(new NavigationPage(new AppShell()));
+        }
         else
-            CounterBtn.Text = $"Clicked {count} times";
-
-        SemanticScreenReader.Announce(CounterBtn.Text);
+        {
+            await DisplayAlertAsync("Login Failed!", "Invalid email or password.", "OK");
+        }
     }
 }
