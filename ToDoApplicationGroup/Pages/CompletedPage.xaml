@@ -1,12 +1,86 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ToDoApplicationGroup.CompletedPage"
-             NavigationPage.HasNavigationBar="False">
-    <ContentPage.Content>
-        <Label 
-            Text="Completed Page"
-            />
-    </ContentPage.Content>
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#FCF5EE">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- Header -->
+        <Frame Grid.Row="0"
+               BackgroundColor="#EE6983"
+               CornerRadius="0"
+               HasShadow="False"
+               Padding="0"
+               HeightRequest="90">
+            <VerticalStackLayout HorizontalOptions="Center"
+                                 VerticalOptions="Center"
+                                 Spacing="2">
+                <Label Text="✓ Completed ✓"
+                       FontSize="26"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       HorizontalOptions="Center"/>
+                <Label Text="look at all you've done ♡"
+                       FontSize="12"
+                       TextColor="#FCF5EE"
+                       Opacity="0.85"
+                       HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+        </Frame>
+
+        <Grid Grid.Row="1">
+            <Label x:Name="EmptyLabel"
+                   Text="Nothing completed yet — you've got this! ♡"
+                   FontSize="14"
+                   TextColor="#EE6983"
+                   Opacity="0.7"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   IsVisible="False"/>
+
+            <ScrollView Padding="16,12">
+                <CollectionView x:Name="CompletedCollectionView"
+                                SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Margin="0,0,0,10"
+                                   CornerRadius="16"
+                                   BackgroundColor="White"
+                                   HasShadow="True"
+                                   Padding="0"
+                                   Opacity="0.75">
+                                <Grid ColumnDefinitions="Auto,*"
+                                      Padding="16,14">
+                                    <Label Grid.Column="0"
+                                           Text="✓"
+                                           FontSize="18"
+                                           TextColor="#EE6983"
+                                           VerticalOptions="Center"
+                                           Margin="0,0,12,0"/>
+                                    <VerticalStackLayout Grid.Column="1"
+                                                         VerticalOptions="Center"
+                                                         Spacing="3">
+                                        <Label Text="{Binding Title}"
+                                               FontSize="15"
+                                               FontAttributes="Bold"
+                                               TextColor="#850E35"
+                                               TextDecorations="Strikethrough"
+                                               LineBreakMode="TailTruncation"/>
+                                        <Label Text="{Binding Details}"
+                                               FontSize="12"
+                                               TextColor="#EE6983"
+                                               Opacity="0.7"
+                                               LineBreakMode="TailTruncation"/>
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </ScrollView>
+        </Grid>
+
+    </Grid>
 </ContentPage>

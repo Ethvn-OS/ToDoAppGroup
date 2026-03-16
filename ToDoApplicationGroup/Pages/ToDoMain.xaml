@@ -1,14 +1,171 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ToDoApplicationGroup"
              x:Class="ToDoApplicationGroup.ToDoMain"
-             NavigationPage.HasNavigationBar="False">
-    <ContentPage.Content>
-        <VerticalStackLayout>
-            <Label 
-                Text="ToDoMain Page"
-                />
-        </VerticalStackLayout>
-    </ContentPage.Content>
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#FCF5EE">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:StringNotEmptyConverter x:Key="StringNotEmptyConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- ── Header ── -->
+        <Frame Grid.Row="0"
+               BackgroundColor="#EE6983"
+               CornerRadius="0"
+               HasShadow="False"
+               Padding="0"
+               HeightRequest="90">
+            <VerticalStackLayout HorizontalOptions="Center"
+                                 VerticalOptions="Center"
+                                 Spacing="2">
+                <Label Text="✿ KittyDo ✿"
+                       FontSize="26"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       HorizontalOptions="Center"/>
+                <Label Text="my little to-do list ♡"
+                       FontSize="12"
+                       TextColor="#FCF5EE"
+                       Opacity="0.85"
+                       HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+        </Frame>
+
+        <!-- ── Todo List + FAB overlay ── -->
+        <Grid Grid.Row="1">
+
+            <!-- Empty state -->
+            <Label x:Name="EmptyLabel"
+                   Text="No tasks yet — tap ✦ to add one! ♡"
+                   FontSize="14"
+                   TextColor="#EE6983"
+                   Opacity="0.7"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   IsVisible="False"/>
+
+            <ScrollView Padding="16,12,16,80">
+                <CollectionView x:Name="TodoCollectionView"
+                                SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Margin="0,0,0,10"
+                                   CornerRadius="16"
+                                   BackgroundColor="White"
+                                   HasShadow="True"
+                                   Padding="0">
+                                <Grid ColumnDefinitions="*,Auto,Auto,Auto"
+                                      Padding="16,14">
+
+                                    <!-- Title + Details -->
+                                    <VerticalStackLayout Grid.Column="0"
+                                                         VerticalOptions="Center"
+                                                         Spacing="3">
+                                        <Label Text="{Binding Title}"
+                                               FontSize="15"
+                                               FontAttributes="Bold"
+                                               TextColor="#850E35"
+                                               LineBreakMode="TailTruncation"/>
+                                        <Label Text="{Binding Details}"
+                                               FontSize="12"
+                                               TextColor="#EE6983"
+                                               Opacity="0.85"
+                                               LineBreakMode="WordWrap"
+                                               MaxLines="2"/>
+                                    </VerticalStackLayout>
+
+                                    <!-- Complete Button -->
+                                    <Frame Grid.Column="1"
+                                           BackgroundColor="#E8F5E9"
+                                           CornerRadius="10"
+                                           Padding="10,7"
+                                           HasShadow="False"
+                                           Margin="6,0,4,0">
+                                        <Label Text="✓"
+                                               FontSize="16"
+                                               TextColor="#2E7D32"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="OnCompleteTapped"
+                                                                      CommandParameter="{Binding .}"/>
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </Frame>
+
+                                    <!-- Delete Button -->
+                                    <Frame Grid.Column="2"
+                                           BackgroundColor="#FFF0F3"
+                                           CornerRadius="10"
+                                           Padding="10,7"
+                                           HasShadow="False"
+                                           Margin="0,0,4,0">
+                                        <Label Text="🗑"
+                                               FontSize="16"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="OnDeleteTapped"
+                                                                      CommandParameter="{Binding .}"/>
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </Frame>
+
+                                    <!-- Edit Button -->
+                                    <Frame Grid.Column="3"
+                                           BackgroundColor="#FFC4C4"
+                                           CornerRadius="10"
+                                           Padding="10,7"
+                                           HasShadow="False">
+                                        <Label Text="✎"
+                                               FontSize="16"
+                                               TextColor="#850E35"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="OnEditTapped"
+                                                                      CommandParameter="{Binding .}"/>
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </Frame>
+
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </ScrollView>
+
+            <!-- ── FAB Add Button ── -->
+            <Frame HorizontalOptions="End"
+                   VerticalOptions="End"
+                   Margin="0,0,24,24"
+                   WidthRequest="58"
+                   HeightRequest="58"
+                   CornerRadius="29"
+                   BackgroundColor="#EE6983"
+                   HasShadow="True"
+                   Padding="0">
+                <Label Text="+"
+                       FontSize="30"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       Margin="0,-2,0,0">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnAddTapped"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </Frame>
+
+        </Grid>
+
+    </Grid>
 </ContentPage>

@@ -31,7 +31,8 @@ public partial class MainPage : ContentPage
         if (inputEmail == savedEmail && inputPassword == savedPassword)
         {
             await DisplayAlertAsync("Welcome!", "You have successfully signed in.", "OK");
-            await Navigation.PushAsync(new NavigationPage(new AppShell()));
+            // await Navigation.PushAsync(new NavigationPage(new AppShell()));
+            Application.Current!.Windows[0].Page = new AppShell();
         }
         else
         {
