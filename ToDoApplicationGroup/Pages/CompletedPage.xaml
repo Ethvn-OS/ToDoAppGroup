@@ -3,10 +3,122 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ToDoApplicationGroup.CompletedPage"
-             NavigationPage.HasNavigationBar="False">
+             NavigationPage.HasNavigationBar="False"
+             Shell.NavBarIsVisible="False">
     <ContentPage.Content>
-        <Label 
-            Text="Completed Page"
-            />
+        <ScrollView>
+            <VerticalStackLayout Padding="25" Spacing="10">
+                <Label 
+                    Text="Completed Tasks"
+                    FontSize="32"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    />
+                
+                <Border
+                StrokeThickness="1"
+                Stroke="#D4E2D4"
+                BackgroundColor="White"
+                Padding="20"
+                StrokeShape="RoundRectangle 20"
+                >
+
+                <Border.Shadow>
+                    <Shadow Brush="#30000000"
+                        Offset="0,4"
+                        Radius="10"/>
+                </Border.Shadow>
+
+                <VerticalStackLayout Spacing="15">
+                    <Label
+                        x:Name="EmptyStateLabel"
+                        Text="There are currently no tasks."
+                        HorizontalOptions="Center"
+                        TextColor="#6B7F6E"
+                        FontAttributes="Italic"
+                        IsVisible="True"
+                        />
+
+
+                    <ListView
+                        x:Name="ToDoLV"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="FillAndExpand"
+                        HasUnevenRows="True"
+                        SeparatorVisibility="Default"
+                        BackgroundColor="White"
+                        ItemSelected="ToDoLV_OnItemSelected"
+                        ItemTapped="ToDoLV_OnItemTapped"
+                        >
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Border Stroke="#E6EFE6"
+                                        BackgroundColor="#F9FBF9"
+                                        StrokeShape="RoundRectangle 12"
+                                        Padding="10"
+                                        Margin="0,5">
+                                        <Grid
+                                            VerticalOptions="FillAndExpand"
+                                            RowSpacing="5"
+                                            HorizontalOptions="FillAndExpand"
+                                            Margin="10,6"
+                                            >
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="7*" />
+                                                <ColumnDefinition Width="3*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Label
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                LineBreakMode="TailTruncation"
+                                                FontSize="16"
+                                                FontAttributes="Bold"
+                                                Text="{Binding title}"
+                                                VerticalOptions="Center"
+                                                HorizontalOptions="Start"
+                                                />
+
+                                            <Label
+                                                Grid.Row="1"
+                                                Grid.Column="0"
+                                                LineBreakMode="TailTruncation"
+                                                FontSize="12"
+                                                Text="{Binding detail}"
+                                                VerticalOptions="Center"
+                                                HorizontalOptions="Start"
+                                                />
+                                            
+                                            <Button
+                                                x:Name="DeleteBtn"
+                                                Text="🗑️"
+                                                FontSize="18"
+                                                TextColor="White"
+                                                CornerRadius="10"
+                                                HeightRequest="40"
+                                                WidthRequest="60"
+                                                BackgroundColor="LightCoral"
+                                                ClassId="{Binding id}"
+                                                Grid.Row="0"
+                                                Grid.RowSpan="2"
+                                                Grid.Column="1"
+                                                Clicked="DeleteBtn_OnClicked"
+                                            />
+                                        </Grid>
+                                    </Border>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </VerticalStackLayout>
+            </Border>
+            </VerticalStackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

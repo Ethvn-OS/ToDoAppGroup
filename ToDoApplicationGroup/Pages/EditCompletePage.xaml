@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ToDoApplicationGroup.EditCompletePage">
+    <ContentPage.Content>
+        <VerticalStackLayout Padding="25" Spacing="10">
+            <Border StrokeThickness="1"
+                    Stroke="#D4E2D4"
+                    BackgroundColor="White"
+                    Padding="20"
+                    StrokeShape="RoundRectangle 20">
+
+                <Border.Shadow>
+                    <Shadow Brush="#30000000"
+                            Offset="0,4"
+                            Radius="10"/>
+                </Border.Shadow>
+
+                <VerticalStackLayout Padding="10" Spacing="10" BackgroundColor="White" Margin="0,0,0,10">
+
+                    <Entry
+                        x:Name="TitleEntry"
+                        Placeholder="Title"
+                        PlaceholderColor="Gray"
+                        TextColor="Black"
+                        Keyboard="Text"
+                        ReturnType="Next"
+                        MaxLength="50" />
+
+                    <Editor
+                        x:Name="DetailsEditor"
+                        Placeholder="Details"
+                        PlaceholderColor="Gray"
+                        TextColor="Black"
+                        MaxLength="240"
+                        Keyboard="Text"
+                        HeightRequest="100" />
+
+                    <Button
+                        x:Name="UpdateBtn"
+                        IsVisible="False"
+                        Text="Edit Task"
+                        FontAttributes="Bold"
+                        TextColor="White"
+                        BackgroundColor="DarkOliveGreen"
+                        Clicked="UpdateBtn_OnClicked"
+                        CornerRadius="12"
+                        HeightRequest="45"
+                        />
+                    
+                    <Button
+                        x:Name="IncompleteBtn"
+                        IsVisible="False"
+                        Text="Incomplete"
+                        FontAttributes="Bold"
+                        TextColor="White"
+                        BackgroundColor="lightgray"
+                        Clicked="IncompleteBtn_OnClickedBtn_OnClicked"
+                        CornerRadius="12"
+                        HeightRequest="45"
+                    />
+                    
+                    <Button
+                        x:Name="DeleteBtn"
+                        IsVisible="False"
+                        Text="Delete"
+                        FontAttributes="Bold"
+                        TextColor="White"
+                        BackgroundColor="LightCoral"
+                        Clicked="DeleteBtn_OnClicked"
+                        CornerRadius="12"
+                        HeightRequest="45"
+                    />
+
+                    <Button
+                        x:Name="CancelBtn"
+                        IsVisible="False"
+                        Text="Cancel Edit"
+                        FontAttributes="Bold"
+                        TextColor="White"
+                        BackgroundColor="LightCoral"
+                        Clicked="CancelBtn_OnClicked"
+                        CornerRadius="12"
+                        HeightRequest="45"
+                        />
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ContentPage.Content>
+</ContentPage>
