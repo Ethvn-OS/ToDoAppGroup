@@ -32,16 +32,16 @@ public partial class ToDoMain : ContentPage
     }
 
     // ── Edit ─────────────────────────────────────────────────────────────────
-    private async void OnEditTapped(object sender, EventArgs e)
+    private async void OnEditTapped(object sender, TappedEventArgs e)
     {
-        if (((TapGestureRecognizer)sender).CommandParameter is TodoItem item)
+        if (e.Parameter is TodoItem item)
             await ShowTodoDialog(item);
     }
 
     // ── Delete ────────────────────────────────────────────────────────────────
-    private async void OnDeleteTapped(object sender, EventArgs e)
+    private async void OnDeleteTapped(object sender, TappedEventArgs e)
     {
-        if (((TapGestureRecognizer)sender).CommandParameter is not TodoItem item) return;
+        if (e.Parameter is not TodoItem item) return;
 
         bool confirmed = await DisplayAlert("Delete Task",
             $"Remove \"{item.Title}\"?", "Yes, delete ✗", "Cancel");
@@ -52,9 +52,9 @@ public partial class ToDoMain : ContentPage
     }
     
     // ── Marking tasks as completed ──────────────────────────────────────────────
-    private void OnCompleteTapped(object sender, EventArgs e)
+    private void OnCompleteTapped(object sender, TappedEventArgs e)
     {
-        if (((TapGestureRecognizer)sender).CommandParameter is TodoItem item)
+        if (e.Parameter is TodoItem item)
         {
             item.IsCompleted = true;
             RefreshList();

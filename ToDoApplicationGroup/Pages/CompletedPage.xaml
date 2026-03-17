@@ -14,6 +14,8 @@
                HasShadow="False"
                Padding="0"
                HeightRequest="90">
+            
+
             <VerticalStackLayout HorizontalOptions="Center"
                                  VerticalOptions="Center"
                                  Spacing="2">
@@ -51,30 +53,89 @@
                                    HasShadow="True"
                                    Padding="0"
                                    Opacity="0.75">
-                                <Grid ColumnDefinitions="Auto,*"
-                                      Padding="16,14">
-                                    <Label Grid.Column="0"
-                                           Text="✓"
-                                           FontSize="18"
+                                <Grid ColumnDefinitions="Auto,*,Auto,Auto,Auto"
+                                  Padding="16,14">
+
+                                <!-- Checkmark icon -->
+                                <Label Grid.Column="0"
+                                       Text="✓"
+                                       FontSize="18"
+                                       TextColor="#EE6983"
+                                       VerticalOptions="Center"
+                                       Margin="0,0,12,0"/>
+
+                                <!-- Title + Details -->
+                                <VerticalStackLayout Grid.Column="1"
+                                                     VerticalOptions="Center"
+                                                     Spacing="3">
+                                    <Label Text="{Binding Title}"
+                                           FontSize="15"
+                                           FontAttributes="Bold"
+                                           TextColor="#850E35"
+                                           TextDecorations="Strikethrough"
+                                           LineBreakMode="TailTruncation"/>
+                                    <Label Text="{Binding Details}"
+                                           FontSize="12"
                                            TextColor="#EE6983"
-                                           VerticalOptions="Center"
-                                           Margin="0,0,12,0"/>
-                                    <VerticalStackLayout Grid.Column="1"
-                                                         VerticalOptions="Center"
-                                                         Spacing="3">
-                                        <Label Text="{Binding Title}"
-                                               FontSize="15"
-                                               FontAttributes="Bold"
-                                               TextColor="#850E35"
-                                               TextDecorations="Strikethrough"
-                                               LineBreakMode="TailTruncation"/>
-                                        <Label Text="{Binding Details}"
-                                               FontSize="12"
-                                               TextColor="#EE6983"
-                                               Opacity="0.7"
-                                               LineBreakMode="TailTruncation"/>
-                                    </VerticalStackLayout>
-                                </Grid>
+                                           Opacity="0.7"
+                                           LineBreakMode="TailTruncation"/>
+                                </VerticalStackLayout>
+                                
+                                <!-- Incomplete Button -->
+                                <Frame Grid.Column="2"
+                                       BackgroundColor="#FFF9C4"
+                                       CornerRadius="10"
+                                       Padding="10,7"
+                                       HasShadow="False"
+                                       Margin="6,0,4,0">
+                                    <Label Text="↩"
+                                           FontSize="16"
+                                           TextColor="#F57F17"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="OnIncompleteTapped"
+                                                                  CommandParameter="{Binding .}"/>
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                </Frame>
+
+                                <!-- Delete Button -->
+                                <Frame Grid.Column="3"
+                                       BackgroundColor="#FFF0F3"
+                                       CornerRadius="10"
+                                       Padding="10,7"
+                                       HasShadow="False"
+                                       Margin="6,0,4,0">
+                                    <Label Text="🗑"
+                                           FontSize="16"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="OnDeleteTapped"
+                                                                  CommandParameter="{Binding .}"/>
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                </Frame>
+
+                                <!-- Edit Button -->
+                                <Frame Grid.Column="4"
+                                       BackgroundColor="#FFC4C4"
+                                       CornerRadius="10"
+                                       Padding="10,7"
+                                       HasShadow="False">
+                                    <Label Text="✎"
+                                           FontSize="16"
+                                           TextColor="#850E35"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="OnEditTapped"
+                                                                  CommandParameter="{Binding .}"/>
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                </Frame>
+                            </Grid>
                             </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
