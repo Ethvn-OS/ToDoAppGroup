@@ -37,10 +37,20 @@
                     Aspect="AspectFit"
                     SemanticProperties.Description="hello kitty image" />
                 
+                <!-- <Entry -->
+                <!--     x:Name="UserNameEntry" -->
+                <!--     Placeholder="User name" -->
+                <!--     /> -->
+                
                 <Entry
-                    x:Name="UserNameEntry"
-                    Placeholder="User name"
-                    />
+                    x:Name="FirstNameEntry"
+                    Placeholder="First Name"
+                />
+                
+                <Entry
+                    x:Name="LastNameEntry"
+                    Placeholder="Last Name"
+                />
             
                 <Entry
                     x:Name="EmailEntry"
