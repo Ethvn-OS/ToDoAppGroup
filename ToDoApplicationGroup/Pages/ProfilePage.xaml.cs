@@ -7,13 +7,21 @@ public partial class ProfilePage : ContentPage
     public ProfilePage()
     {
         InitializeComponent();
-        UserNameLabel.Text = Preferences.Default.Get("auth_username", "");
+        var firstName = Preferences.Default.Get("auth_fname", "");
+        var lastName = Preferences.Default.Get("auth_lname", "");
+        var fullName = $"{firstName} {lastName}".Trim();
+
+        UserNameLabel.Text = string.IsNullOrWhiteSpace(fullName) ? "User" : fullName;
         EmailLabel.Text = Preferences.Default.Get("auth_email", "");
     }
 
     // Sign out — kept exactly as original
-    private void SignOutBtn_OnClicked(object? sender, EventArgs e)
+    private async void SignOutBtn_OnClicked(object? sender, EventArgs e)
     {
+        Preferences.Default.Remove("auth_email");
+        Preferences.Default.Remove("auth_fname");
+        Preferences.Default.Remove("auth_lname");
+        await DisplayAlertAsync("Signed Out", "You have been logged out.", "OK");
         Application.Current!.Windows[0].Page = new NavigationPage(new MainPage());
     }
 
